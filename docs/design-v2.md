@@ -1,4 +1,6 @@
-# Version 0.2 — design and integration
+# Version 0.2 — historical design and integration
+
+Status below records the version 0.2 milestone. See verification.md and design-v4.md for the current Home/startup and UI result.
 
 ## Research translated into the interface
 

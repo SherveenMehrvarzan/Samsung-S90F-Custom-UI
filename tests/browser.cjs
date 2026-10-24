@@ -11,6 +11,18 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
  await page.keyboard.press('ArrowRight');assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'5b8c3eb16b.BeamCTVDev');
  await page.locator('#favorites [data-app-id="org.tizen.netflix-app"]').focus();
  await page.screenshot({path:'work/quiet-home-v2-preview.png'});
+ await page.getByRole('button',{name:'Quiet Home settings',exact:true}).click();
+ await page.getByRole('button',{name:'Ocean background',exact:true}).click();
+ await page.getByRole('button',{name:'Gradient',exact:true}).click();
+ await page.getByRole('slider',{name:'Background brightness',exact:true}).focus();
+ await page.keyboard.press('ArrowLeft');await page.keyboard.press('ArrowLeft');await page.keyboard.press('ArrowLeft');
+ assert.equal(await page.locator('#brightness-value').textContent(),'85%');
+ await page.screenshot({path:'work/quiet-home-v3-settings.png'});
+ await page.reload();
+ assert.deepEqual(await page.evaluate(()=>QuietHomeAppearance.getState()),{preset:'ocean',hue:185,mode:'gradient',brightness:85});
+ await page.getByRole('button',{name:'Quiet Home settings',exact:true}).click();
+ await page.getByRole('button',{name:'Reset appearance',exact:true}).click();
+ await page.getByRole('button',{name:'Home',exact:true}).click();
  await page.getByRole('button',{name:'Search apps',exact:true}).click();
  await page.getByRole('searchbox').fill('nEtFl');
  assert.equal(await page.locator('#search-results .app').count(),1);
@@ -35,7 +47,9 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
  assert.equal(await page.locator('#library [data-app-id="org.tizen.primevideo-dummy"]').count(),0);
  assert.equal(await page.locator('#library [data-app-id="hidden-service"]').count(),0);
  await page.locator('#library [data-app-id="org.tizen.primevideo"]').click();
+ await page.getByRole('button',{name:'Quiet Home settings',exact:true}).click();
  await page.getByRole('button',{name:'Samsung Settings',exact:true}).click();
+ await page.getByRole('button',{name:'Apps',exact:true}).click();
  await page.getByRole('button',{name:'Get more apps',exact:false}).click();
  await page.getByRole('button',{name:'Samsung Home',exact:false}).click();
  assert.deepEqual(await page.evaluate(()=>window.launched),['org.tizen.primevideo','org.tizen.menu','com.samsung.tv.store','com.samsung.tv.csfs']);
@@ -51,6 +65,7 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
  await page.getByRole('button',{name:'Samsung sources',exact:false}).click();
  assert.equal(await page.evaluate(()=>window.launched.at(-1)),'org.tizen.SMSourceAPP');
  await page.evaluate(()=>window.missingApp=true);
+ await page.getByRole('button',{name:'Quiet Home settings',exact:true}).click();
  await page.getByRole('button',{name:'Samsung Settings',exact:true}).click();assert.match(await page.locator('#toast').textContent(),/unavailable/);
  assert.deepEqual(errors,[]);
  await browser.close();console.log('PASS: remote focus, case-insensitive app search, empty results, official store/settings/Home launches, app filtering, input enumeration/switching, and failure recovery.');

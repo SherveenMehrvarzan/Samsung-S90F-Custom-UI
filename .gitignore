@@ -1,5 +1,7 @@
 # Private device configuration, identity, credentials and snapshots
 .private/
+*.local.json
+QuietHome-Recovery/
 private/
 .env
 .env.*

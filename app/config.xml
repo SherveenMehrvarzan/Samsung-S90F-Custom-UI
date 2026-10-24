@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://quiet-home.local/app" version="0.2.0" viewmodes="maximized">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://quiet-home.local/app" version="0.4.0" viewmodes="maximized">
   <tizen:application id="QuietHome1.Launcher" package="QuietHome1" required_version="9.0"/>
   <content src="index.html"/>
   <name>Quiet Home</name>
+  <icon src="icon.png"/>
   <tizen:profile name="tv-samsung"/>
   <tizen:privilege name="http://tizen.org/privilege/application.info"/>
   <tizen:privilege name="http://tizen.org/privilege/application.launch"/>

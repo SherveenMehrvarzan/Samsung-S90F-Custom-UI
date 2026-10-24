@@ -1,0 +1,44 @@
+/* TV layout in a 1920-wide coordinate system. Inter is included under OFL. */
+@font-face{font-family:Inter;src:url('InterVariable.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
+:root{--muted:#b9bbc8;--glass:#e2e5ff12;--border:#ffffff26}
+body{font-family:Inter,"Segoe UI",Arial,sans-serif;color:#f5f5f7;font-optical-sizing:auto;-webkit-font-smoothing:antialiased}
+button,input{font-family:inherit}
+.shade{background:linear-gradient(180deg,#07091425,transparent 30%,#080a1650 65%,#080a16bb)}
+header{height:13.5vh;padding:0 5.3vw}
+.identity{font-size:1.35vw;font-weight:600;gap:.65vw;letter-spacing:-.045em}
+.identity>img{width:2.05vw;height:2.05vw}
+nav{padding:.32vw;gap:.2vw;background:#d8dcf010;border-color:#ffffff20;box-shadow:inset 0 1px 0 #ffffff14,0 .5vw 2vw #0002}
+nav button{font-size:1.25vw;padding:.72vw 1.35vw;min-height:3.15vw;letter-spacing:-.025em;font-weight:550}
+nav button[aria-current=page]{background:#ffffff16}
+nav button:focus,.round:focus{background:linear-gradient(160deg,#fff,#d8deed);color:#161821;box-shadow:inset 0 1px 0 white,0 .5vw 1.2vw #0005}
+.status{gap:1.2vw}time{font-size:1.25vw;letter-spacing:-.04em}.round{width:3.3vw;height:3.3vw}.round svg{width:1.65vw;height:1.65vw}
+.view{height:78vh;padding:0 5.3vw 5vh;scroll-padding:3vh}
+.spotlight{height:21vh;display:flex;flex-direction:column;justify-content:center;padding-bottom:2vh;pointer-events:none}
+.spotlight p{font-size:1.15vw;font-weight:500;letter-spacing:-.015em;margin:1.6vh 0 0;color:#c0c3d3}
+.spotlight h1{font-size:4.2vw;line-height:1.06;letter-spacing:-.055em;font-weight:650;margin:0;text-shadow:0 .5vw 2vw #0003}
+.section-heading{margin-bottom:2.4vh}.section-heading h1,.section-heading h2{font-size:1.5vw;font-weight:600;letter-spacing:-.025em}
+.text-button{font-size:1.2vw;color:#d1d2dd;padding:.55vw .75vw;border-radius:2vw}
+.app-grid{gap:3.8vh 2vw;padding:.7vw .05vw 1.6vh}
+#favorites{position:relative;padding:1.2vw 1.05vw .1vw;margin:0 -1.05vw;border-radius:2.1vw;background:linear-gradient(130deg,#ffffff10,#ffffff05);border:1px solid #ffffff16;box-shadow:inset 0 1px 0 #ffffff08,0 1.4vw 3vw #0002;gap:2vw;overflow:visible}
+.app{position:relative;border-radius:1.65vw;scroll-margin:3vh 1vw}
+.tile{height:auto;aspect-ratio:1.65;border-radius:1.45vw;box-shadow:0 .45vw .8vw #0004,inset 0 1px 0 #ffffff16;transition:transform 220ms cubic-bezier(.2,.75,.25,1),box-shadow 220ms ease,filter 220ms ease;transform-origin:center;will-change:auto}
+.tile:after{border-color:#ffffff12;background:linear-gradient(145deg,#ffffff10,transparent 42%,#00000008);box-shadow:inset 0 1px 0 #ffffff16;transition:background 220ms}
+.app:focus{z-index:2}.app:focus .tile{transform:translateY(-.45vh) scale(1.10);box-shadow:0 1.5vw 2.1vw #0008,0 .3vw .7vw #0005,0 0 0 .1vw #ffffff65;filter:brightness(1.12)}
+.app:focus .tile:after{background:linear-gradient(135deg,#ffffff25,transparent 58%);border-color:#ffffff65}
+.app:active .tile{transform:scale(1.035);transition-duration:80ms}
+.app-label{font-size:1.2vw;font-weight:500;letter-spacing:-.025em;margin-top:2.2vh;padding:0;line-height:1.5;color:#babdca;transition:color .15s}
+.app:focus .app-label{font-weight:600;color:#fff}
+.netflix{font-family:Inter,Arial,sans-serif;font-size:5.25vw;font-weight:850;background:linear-gradient(150deg,#212126,#060609)}
+.hbo{background:linear-gradient(150deg,#1638b6,#06135c);font-size:3vw}.hbo small{font-size:.9vw}
+.prime{background:linear-gradient(140deg,#1aa9dd,#0870a7);font-size:1.9vw}.hulu{background:linear-gradient(145deg,#073a23,#041e12);font-size:3.6vw}.twitch{background:linear-gradient(145deg,#9b5bfa,#6628cd);font-size:2.6vw}
+.store{background:linear-gradient(145deg,#61bcff,#1169de)}.store svg{width:4.2vw;height:4.2vw}
+.input-heading{margin-top:4.4vh;margin-bottom:1.6vh}
+.input-card{padding:1.15vw 1.4vw;border-radius:1.35vw;min-height:10.6vh;background:linear-gradient(130deg,#ffffff14,#ffffff08);border-color:#ffffff21;box-shadow:inset 0 1px 0 #ffffff10,0 .4vw 1vw #0002;transition:transform .2s ease,background .2s,box-shadow .2s}
+.input-card:focus{background:linear-gradient(150deg,#fff,#d5dbea);color:#161821;transform:scale(1.035);box-shadow:0 .8vw 1.8vw #0005,inset 0 1px 0 #fff}
+.input-title{font-size:1.35vw;font-weight:600;letter-spacing:-.025em}.input-status{font-size:1.2vw;color:#b7bbcc;margin-top:.35vw}.dot{width:.36vw;height:.36vw}.input-arrow{font-size:1.4vw}
+.page-heading{margin:3.5vh 0 4vh}.page-heading h1{font-size:3.5vw;font-weight:650;letter-spacing:-.05em}.eyebrow{font-size:1.2vw;letter-spacing:.09em;color:#b8bdcc}.description{font-size:1.35vw;color:#bec1d0}.glass-button{font-size:1.25vw;padding:1vw 1.5vw;border-radius:2vw;background:linear-gradient(135deg,#ffffff19,#ffffff0b)}
+.input-grid .input-card{min-height:15vh}.input-grid .input-title{font-size:1.6vw}.input-grid .input-status{font-size:1.2vw}#input-note{font-size:1.2vw}
+.search-box{border-radius:1.4vw;padding:1.3vw 1.6vw}.search-box>svg{width:2.2vw;height:2.2vw}#search{font-size:2vw;letter-spacing:-.035em}.store-callout h2{font-size:1.6vw}.store-callout p{font-size:1.2vw}.store-callout{padding:3vh 0}
+footer{font-size:1.2vw;color:#a8adbf;padding-bottom:3vh}.footer-button{font-size:1.2vw;color:#c4c8d7;border-radius:2vw}#preview-badge{font-size:.85vw}#toast{font-size:1.35vw;border-radius:1.2vw}
+.appearance-panel,.tv-settings-card{border-radius:1.5vw;background:linear-gradient(135deg,#ffffff10,#ffffff07)}.appearance-heading h2,.tv-settings-card h2{font-size:1.7vw}.mode-switch button{font-size:1.2vw}.theme-swatch{font-size:1.2vw}.range-row>span{font-size:1.25vw}.range-row output{font-size:1.2vw}.appearance-bottom p,.appearance-bottom .text-button{font-size:1.2vw}.tv-settings-card>p{font-size:1.3vw}.tv-settings-card .settings-help{font-size:1.2vw}.appearance-bottom{gap:1vw}.appearance-bottom p{max-width:58%}.settings-grid{grid-template-columns:1.65fr 1fr}.settings-grid .text-button{white-space:nowrap}.theme-palette{gap:.8vw}.swatch-sample{height:6.7vh;border-radius:.8vw}.mode-switch{border-radius:2vw}.mode-switch button{border-radius:2vw}.appearance-panel{padding:1.7vw}.range-row{margin-top:2.4vh}
+@media(prefers-reduced-motion:reduce){.app:focus .tile,.input-card:focus{transform:none}.view-enter{animation:none}}
