@@ -9,10 +9,17 @@
 - Owner confirmed the Samsung Home shortcut works.
 - Owner confirmed Samsung Settings was visible after launching `org.tizen.menu`; that ID is now in the installed launcher.
 - Browser navigation and mocked app-launch behavior passed.
+- Version 0.2 was installed and inspected through the live TV debugger.
+- Consumer-app indexing found 31 apps after internal components, dummy packages and duplicate names were filtered.
+- Owner confirmed the Samsung Apps destination opens the store.
+- Real source enumeration returned HDMI 1–4 and Live TV.
+- The TV's source API accepted setting its already-current TV input with a native source handle.
 
 ## Pending
 
 - Physical test of each of the five streaming services from the launcher.
+- Physical remote text entry in Search and launch of a filtered result.
+- Switching to a different physical HDMI input with a connected device.
 - Physical retest of the updated Settings tile.
 - A complete native Home/startup baseline from this TV.
 - A tested same-value restore procedure and restored-state comparison.

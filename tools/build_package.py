@@ -9,7 +9,7 @@ ET.parse(app / 'config.xml')
 destination = root / 'dist' / 'QuietHome-unsigned.wgt'
 destination.parent.mkdir(exist_ok=True)
 with ZipFile(destination, 'w', ZIP_DEFLATED) as package:
-    for name in ('index.html', 'style.css', 'app.js', 'config.xml'):
+    for name in ('index.html', 'style.css', 'app.js', 'config.xml', 'wallpaper.svg'):
         package.write(app / name, name)
 print(destination)
 

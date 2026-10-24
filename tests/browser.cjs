@@ -1,48 +1,57 @@
 require('node:fs').mkdirSync('work',{recursive:true});
-const {chromium} = require('playwright');
-const path = require('node:path');
-const assert = require('node:assert/strict');
-(async () => {
-  const browser = await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});
-  const page = await browser.newPage({viewport:{width:1920,height:1080}});
-  const errors=[]; page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('file:///'+path.resolve('app/index.html').replaceAll('\\','/'));
-  assert.equal(await page.locator(':focus').getAttribute('data-key'),'netflix');
-  for (let i=0;i<4;i++) await page.keyboard.press('ArrowRight');
-  assert.equal(await page.locator(':focus').getAttribute('data-key'),'twitch');
-  await page.keyboard.press('ArrowDown');
-  assert.equal(await page.locator(':focus').getAttribute('data-key'),'home');
-  await page.keyboard.press('ArrowLeft');
-  assert.equal(await page.locator(':focus').getAttribute('data-key'),'settings');
-  await page.keyboard.press('Enter');
-  assert.match(await page.locator('#toast').textContent(),/Preview only/);
-  await page.keyboard.press('Escape');
-  assert.equal(await page.locator(':focus').getAttribute('data-key'),'netflix');
-  await page.locator('#toast').evaluate(el=>el.hidden=true);
-  await page.screenshot({path:'work/preview.png'});
-  // Exercise actual Tizen code paths with a fake device API. No TV writes.
-  await page.addInitScript(()=>{
-    window.launched=[];
-    window.tizen={application:{
-      getAppsInfo:ok=>ok([
-        {id:'n',name:'Netflix'},{id:'m',name:'HBO Max'},
-        {id:'org.tizen.primevideo-dummy',name:'Prime Video'},
-        {id:'org.tizen.primevideo',name:'Prime Video'},{id:'h',name:'Hulu'},
-        {id:'t',name:'Twitch'},{id:'org.tizen.menu',name:'org.tizen.menu'},
-        {id:'com.samsung.tv.csfs',name:'System Hub'}
-      ]),
-      launch:(id,ok)=>{window.launched.push(id);ok();},
-      getCurrentApplication:()=>({appInfo:{id:'QuietHome1.Launcher'},exit:()=>window.exited=true})
-    }};
-  });
-  await page.reload();
-  for (const key of ['netflix','hbo','prime','hulu','twitch','settings','home']) await page.locator('[data-key="'+key+'"]').click();
-  assert.deepEqual(await page.evaluate(()=>window.launched),['n','m','org.tizen.primevideo','h','t','org.tizen.menu','com.samsung.tv.csfs']);
-  await page.keyboard.press('Escape'); assert.equal(await page.evaluate(()=>window.exited),true);
-  await page.evaluate(()=>{tizen.application.getAppsInfo=ok=>ok([]);document.dispatchEvent(new Event('visibilitychange'));});
-  await page.locator('[data-key="netflix"]').click();
-  assert.match(await page.locator('#toast').textContent(),/not found/);
-  assert.equal(errors.length,0,errors.join('\n'));
-  console.log('PASS: remote navigation, preview behavior, seven mocked TV shortcuts, Back exit, missing-app handling; no page errors.');
-  await browser.close();
-})().catch(e=>{console.error(e);process.exit(1)});
+const {chromium}=require('playwright');
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+(async()=>{
+ const browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});
+ const page=await browser.newPage({viewport:{width:1920,height:1080}}),errors=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ const url='file:///'+path.resolve('app/index.html').replaceAll('\\','/');
+ await page.goto(url);
+ assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'org.tizen.netflix-app');
+ await page.keyboard.press('ArrowRight');assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'5b8c3eb16b.BeamCTVDev');
+ await page.locator('#favorites [data-app-id="org.tizen.netflix-app"]').focus();
+ await page.screenshot({path:'work/quiet-home-v2-preview.png'});
+ await page.getByRole('button',{name:'Search apps',exact:true}).click();
+ await page.getByRole('searchbox').fill('nEtFl');
+ assert.equal(await page.locator('#search-results .app').count(),1);
+ await page.getByRole('searchbox').fill('not installed');
+ assert.match(await page.locator('#search-count').textContent(),/No installed apps/);
+ await page.getByRole('button',{name:'Open Samsung Apps',exact:false}).click();assert.match(await page.locator('#toast').textContent(),/Preview.*Samsung Apps/);
+ await page.locator('#toast').evaluate(e=>e.hidden=true);
+ await page.getByRole('searchbox').fill('prime');
+ await page.screenshot({path:'work/quiet-home-v2-search.png'});
+ await page.getByRole('button',{name:'Inputs',exact:true}).click();
+ assert.equal(await page.locator('#input-list [data-source]').count(),5);
+ await page.screenshot({path:'work/quiet-home-v2-inputs.png'});
+ await page.addInitScript(()=>{
+  const list=[{id:'org.tizen.netflix-app',name:'Netflix',show:true},{id:'5b8c3eb16b.BeamCTVDev',name:'HBO Max',show:true},{id:'org.tizen.primevideo-dummy',name:'Prime Video',show:true},{id:'org.tizen.primevideo',name:'Prime Video',show:true},{id:'LBUAQX1exg.Hulu',name:'Hulu',show:true},{id:'Jz7aUrV2Q4.Twitch',name:'Twitch',show:true},{id:'com.samsung.tv.store',name:'Apps',show:true},{id:'org.tizen.menu',name:'org.tizen.menu',show:false},{id:'com.samsung.tv.csfs',name:'csfs',show:false},{id:'org.tizen.SMSourceAPP',name:'SMSourceAPP',show:false},{id:'hidden-service',name:'Internal service',show:true},{id:'Abc123Def4.YouTube',name:'YouTube',show:true}];
+  window.launched=[];window.switched=[];window.exits=0; const connected=[{type:'HDMI',number:1},{type:'TV',number:0}],disconnected=[{type:'HDMI',number:2},{type:'HDMI',number:3},{type:'HDMI',number:4}],handles=connected.concat(disconnected);
+  window.tizen={application:{getAppsInfo:ok=>ok(list),getAppInfo:id=>{if(window.missingApp||!list.some(a=>a.id===id))throw {name:'NotFoundError'};return list.find(a=>a.id===id);},launch:(id,ok,fail)=>window.launchFailure?fail({name:'UnknownError'}):(window.launched.push(id),ok()),getCurrentApplication:()=>({exit:()=>window.exits++})},systeminfo:{getPropertyValue:(key,ok,fail)=>window.sourceFailure?fail({name:'SecurityError'}):ok({connected:connected,disconnected:disconnected})},tvwindow:{getSource:()=>({type:'HDMI',number:1}),setSource:(source,ok,fail)=>!handles.includes(source)?fail({name:'TypeMismatchError'}):window.switchFailure?fail({name:'UnknownError'}):(window.switched.push(source),ok())}};
+ });
+ await page.reload();
+ assert.equal(await page.locator('#preview-badge').isVisible(),false);
+ await page.getByRole('button',{name:'Apps',exact:true}).click();
+ assert.equal(await page.locator('#library .app').count(),7);
+ assert.equal(await page.locator('#library [data-app-id="org.tizen.primevideo-dummy"]').count(),0);
+ assert.equal(await page.locator('#library [data-app-id="hidden-service"]').count(),0);
+ await page.locator('#library [data-app-id="org.tizen.primevideo"]').click();
+ await page.getByRole('button',{name:'Samsung Settings',exact:true}).click();
+ await page.getByRole('button',{name:'Get more apps',exact:false}).click();
+ await page.getByRole('button',{name:'Samsung Home',exact:false}).click();
+ assert.deepEqual(await page.evaluate(()=>window.launched),['org.tizen.primevideo','org.tizen.menu','com.samsung.tv.store','com.samsung.tv.csfs']);
+ await page.getByRole('button',{name:'Inputs',exact:true}).click();
+ await page.locator('#input-list [data-source="HDMI:2"]').click();
+ assert.deepEqual(await page.evaluate(()=>window.switched),[{type:'HDMI',number:2}]);
+ assert.equal(await page.evaluate(()=>window.exits),1);
+ await page.evaluate(()=>window.switchFailure=true);
+ await page.locator('#input-list [data-source="HDMI:3"]').click();assert.match(await page.locator('#toast').textContent(),/Could not switch/);
+ assert.equal(await page.evaluate(()=>window.exits),1);
+ await page.evaluate(()=>{window.sourceFailure=true;document.dispatchEvent(new Event('visibilitychange'));});
+ assert.match(await page.locator('#input-note').textContent(),/unavailable/);
+ await page.getByRole('button',{name:'Samsung sources',exact:false}).click();
+ assert.equal(await page.evaluate(()=>window.launched.at(-1)),'org.tizen.SMSourceAPP');
+ await page.evaluate(()=>window.missingApp=true);
+ await page.getByRole('button',{name:'Samsung Settings',exact:true}).click();assert.match(await page.locator('#toast').textContent(),/unavailable/);
+ assert.deepEqual(errors,[]);
+ await browser.close();console.log('PASS: remote focus, case-insensitive app search, empty results, official store/settings/Home launches, app filtering, input enumeration/switching, and failure recovery.');
+})().catch(e=>{console.error(e);process.exit(1);});
