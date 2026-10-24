@@ -1,0 +1,30 @@
+# Private device configuration, identity, credentials and snapshots
+.private/
+private/
+.env
+.env.*
+!.env.example
+*baseline*.json
+*snapshot*.json
+*device-private*
+*.p12
+*.pfx
+*.pem
+*.key
+*.csr
+*.cer
+*.crt
+*password*
+*token*
+
+# Generated artifacts and dependencies
+node_modules/
+dist/
+work/
+*.wgt
+*.tpk
+*.dll
+*.exe
+*.zip
+__pycache__/
+

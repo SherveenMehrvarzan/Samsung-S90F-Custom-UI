@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Quiet Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header><span class="wordmark">Home</span><time id="clock"></time></header>
+    <section class="intro"><p class="eyebrow">YOUR EVENING, SIMPLIFIED</p><h1>Something good awaits.</h1><p class="subtitle">All your favorites. Right here.</p></section>
+    <section aria-label="Favorite apps" class="apps">
+      <button class="app" data-key="netflix" aria-label="Netflix"><span class="tile netflix">NETFLIX</span><span class="label">Netflix</span></button>
+      <button class="app" data-key="hbo" aria-label="HBO Max"><span class="tile hbo"><small>HBO</small>max</span><span class="label">HBO Max</span></button>
+      <button class="app" data-key="prime" aria-label="Prime Video"><span class="tile prime">prime video<span class="smile"></span></span><span class="label">Prime Video</span></button>
+      <button class="app" data-key="hulu" aria-label="Hulu"><span class="tile hulu">hulu</span><span class="label">Hulu</span></button>
+      <button class="app" data-key="twitch" aria-label="Twitch"><span class="tile twitch">twitch</span><span class="label">Twitch</span></button>
+    </section>
+    <nav aria-label="TV controls"><button class="utility" data-key="settings"><span aria-hidden="true">⚙</span> Samsung Settings</button><button class="utility" data-key="home"><span aria-hidden="true">⌂</span> Samsung Home</button></nav>
+    <footer><span>↑ ↓ ← → to browse <i>·</i> OK to open</span><span>Quiet Home</span></footer>
+  </main>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
