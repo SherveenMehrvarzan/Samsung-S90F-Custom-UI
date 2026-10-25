@@ -58,3 +58,7 @@ Browser checks pass Spotify placement, date/weather display, unit and enable con
 ### v0.8 TV verification — 2026-10-24
 Installed 0.8.0 successfully. TV inspector confirmed Spotify fourth on Home; Santa Clara live weather loaded (60°F, Clear), date beneath clock; viewport 1920×1080 at devicePixelRatio 1. Original Samsung Home/startup verified against saved baseline. Debug app stopped and SDK disconnected after inspection. All five browser suites passed.
 
+
+### Home/startup re-enabled at owner request — 24 October 2026
+Home-only apply preserved original startup values and passed independent query. After the owner reported standby seemed normal, startup was enabled and independently queried. The owner confirmed Quiet Home opens on power-on and no recurring clicks during the latest check. Longer-term standby stability and unplugged cold boot remain unverified. SDK disconnected. Owner advised to retain Developer Mode; disabling it has not been tested while the sideloaded app is assigned as Home. The PC is not required for normal app use.
+

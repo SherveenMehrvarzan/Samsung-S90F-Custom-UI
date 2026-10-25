@@ -1,6 +1,6 @@
 # Samsung S90F Custom UI — Quiet Home
 
-**Native Home/startup integration remains disabled.** After a standby/relay report, the original captured settings were restored and independently verified. The owner subsequently reported that behavior appeared normal and requested UI-only work to resume. Cause remains unconfirmed. Version 0.8 does not reassign Home, enable custom startup, send power commands or change TV picture brightness.
+**Current device status — 24 October 2026:** At the owner's request, Quiet Home was reassigned to Home, tested separately in standby, and then enabled for automatic startup. Both operations passed independent readback. The owner confirmed automatic startup works and reported no recurring clicking during the latest observation. The earlier standby issue's cause remains unconfirmed; extended stability and unplugged cold boot are not established. Restore Samsung Home before uninstalling Quiet Home. The SDK connection is closed; the app runs on the TV without the computer.
 
 Version 0.7 adds recognizable vector service logos, 12 darker background palettes, four background styles (Landscape, Gradient, Aurora and Solid), brightness down to 5%, and original navigation/selection sounds with mute and volume controls. Appearance and sound settings are stored locally. Audio resources close after 800 ms idle and immediately when the page is hidden. The UI clock also stops while hidden.
 
@@ -68,4 +68,5 @@ Samsung APIs used: [Application API](https://developer.samsung.com/smarttv/devel
 ## Private operational data
 
 Keep signing keys, OAuth tokens, passwords, signed packages, full device dumps and per-TV recovery snapshots outside version control. The source contains service app IDs, not account credentials. The installed-app IDs and internal Samsung destinations can vary by model or firmware.
+
 
