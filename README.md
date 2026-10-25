@@ -1,16 +1,18 @@
 # Samsung S90F Custom UI — Quiet Home
 
-> **Home/startup integration suspended — 24 October 2026.** Repeated relay clicks and changed standby behavior were reported after customization. The cause is unconfirmed. All captured original Home/startup preferences were restored and independently verified, and the owner confirmed Samsung Home returns. Quiet Home was stopped and the SDK/debug connection closed. Standby observation is pending. Do not reapply native Home/startup assignments while investigating this report.
+**Native Home/startup integration remains disabled.** After a standby/relay report, the original captured settings were restored and independently verified. The owner subsequently reported that behavior appeared normal and requested UI-only work to resume. Cause remains unconfirmed. Version 0.8 does not reassign Home, enable custom startup, send power commands or change TV picture brightness.
 
-The remaining notes record earlier development milestones and do not establish standby stability.
+Version 0.7 adds recognizable vector service logos, 12 darker background palettes, four background styles (Landscape, Gradient, Aurora and Solid), brightness down to 5%, and original navigation/selection sounds with mute and volume controls. Appearance and sound settings are stored locally. Audio resources close after 800 ms idle and immediately when the page is hidden. The UI clock also stops while hidden.
 
-A clean Apple TV-inspired launcher for Samsung's Tizen TV platform. Version 0.4 includes a six-column app grid, translucent navigation, installed-app search, Samsung Apps download access, TV input cards, a custom house icon and persistent background customization. Version 0.4 bundles Inter for consistent TV typography, increases label sizes, adds a translucent favorites shelf, deeper focus lighting, a selected-app heading and remembered app focus.
+**Resolution:** the TV reports a 1920×1080 surface at device pixel ratio 1. Samsung documents 1080p application UI even on UHD TVs. Native 4K is not achieved by this release; vector artwork and responsive layout do not change the TV compositor resolution.
+
+Version 0.8 adds a date and Santa Clara weather header, Spotify in place of Hulu on Home, eight additional vector app marks, matched tile backgrounds and focus animation that keeps foreground artwork unscaled. See [clarity and native 4K investigation](docs/clarity-weather-v8.md).
 
 ## Current result
 
 - Installed on a 65-inch Samsung S90F running Tizen 9.
 - The owner confirmed the launcher displays on the TV.
-- Netflix, HBO Max, Prime Video, Hulu and Twitch appear in that order.
+- Netflix, HBO Max, Prime Video, Spotify and Twitch appear in that order.
 - Samsung Apps is the sixth favorite, opening Samsung's official store for search and installation.
 - Apps lists consumer applications while filtering internal Samsung services and duplicate placeholders.
 - Search filters installed apps; downloading additional apps takes place in Samsung Apps, with Samsung's own account and installation flow.
@@ -18,11 +20,11 @@ A clean Apple TV-inspired launcher for Samsung's Tizen TV platform. Version 0.4 
 - Samsung Home was confirmed working.
 - The correct Samsung Settings destination was identified by an on-TV test and installed in the launcher update.
 - The owner confirmed remote Search works.
-- The gear button opens Quiet Home settings: six background colors, Landscape/Gradient styles, hue and brightness sliders. Appearance saves in local storage.
+- The Appearance tile opens Quiet Home settings: six background colors, Landscape/Gradient styles, hue and brightness sliders. Appearance saves in local storage.
 - A purpose-made house icon replaces the generic app icon.
-- The owner confirmed Home opens Quiet Home and background customization works.
+- Home previously opened Quiet Home; the original Samsung Home assignment has since been restored. Background customization works.
 - Same-value restoration, assignment, restoration from the assigned state and reapplication passed native readback.
-- At the owner's later request, startup_appid and booting_appid_backup now target Quiet Home, with autostart 1. The owner confirmed normal remote off/on opens Quiet Home automatically; a full cold boot has not been tested.
+- Custom startup was subsequently reverted. Independent native verification after the version 0.8 update matched every captured original Home/startup value.
 - Individual streaming-app launches and a different-port HDMI switch still need physical verification.
 
 This is an original layout inspired by Apple TV; it does not copy Apple's UI assets or change the interfaces inside streaming apps.
@@ -31,7 +33,7 @@ This is an original layout inspired by Apple TV; it does not copy Apple's UI ass
 
 - `main`: the installed launcher source and reproducible packaging instructions.
 - `feature/home-button`: firmware-guarded Home control and recovery tooling; owner-specific backups remain local.
-- `feature/apple-tv-ui`: version 0.4 interface, appearance, app search, Samsung Apps access, icon and inputs.
+- `feature/apple-tv-ui`: version 0.7 interface, appearance, app search, Samsung Apps access, icon and inputs.
 
 ## Preview and build
 
@@ -59,7 +61,7 @@ npm test
 
 On Windows with Edge already installed, set `BROWSER_CHANNEL=msedge` to run the checks using Edge. Browser screenshots are saved under the ignored `work/` folder.
 
-See [Apple TV design study and refinement](docs/design-v4.md) and [integration notes](docs/design-v2.md) for the Apple references and Samsung API behavior.
+See [Home grid and motion](docs/design-v5.md), [Apple TV design study](docs/design-v4.md) and [integration notes](docs/design-v2.md) for the Apple references and Samsung API behavior.
 
 Samsung APIs used: [Application API](https://developer.samsung.com/smarttv/develop/api-references/tizen-web-device-api-references/application-api.html) and [TV device connection](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html).
 

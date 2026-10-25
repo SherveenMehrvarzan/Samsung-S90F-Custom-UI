@@ -1,8 +1,6 @@
 # Home and startup control — one verified firmware
 
-> **Home/startup integration suspended — 24 October 2026.** Repeated relay clicks and changed standby behavior were reported after customization. The cause is unconfirmed. All captured original Home/startup preferences were restored and independently verified, and the owner confirmed Samsung Home returns. Quiet Home was stopped and the SDK/debug connection closed. Standby observation is pending. Do not reapply native Home/startup assignments while investigating this report.
-
-The remaining notes record earlier development milestones and do not establish standby stability.
+> **Home/startup customization suspended — 24 October 2026.** Relay clicks and changed standby behavior were reported; cause remains unconfirmed. All captured original Home/startup values were restored and independently verified. The owner confirmed Samsung Home returns. Quiet Home was stopped and the SDK/debug connection closed. The owner later reported standby appeared normal and authorized UI-only work to resume. Native Home/startup assignments remain disabled. Earlier milestones below do not establish standby stability.
 
 This controller is specifically guarded for QN65S90FAFXZA firmware T-RSMFAKUC-0090-1301.0, ARM32, SDK UID 901. It is not a portable Samsung Home replacement API. The owner confirmed Home-button behavior and normal remote off/on startup. An unplugged cold boot has not been tested.
 

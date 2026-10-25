@@ -6,7 +6,7 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
  const page=await browser.newPage({viewport:{width:1920,height:1080}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  const url='file:///'+path.resolve('app/index.html').replaceAll('\\','/');
- await page.goto(url);
+ await page.route('https://api.open-meteo.com/**',r=>r.fulfill({json:{current:{temperature_2m:18,weather_code:0,is_day:0}}}));await page.goto(url);
  assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'org.tizen.netflix-app');
  await page.keyboard.press('ArrowRight');assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'5b8c3eb16b.BeamCTVDev');
  await page.locator('#favorites [data-app-id="org.tizen.netflix-app"]').focus();
@@ -16,10 +16,10 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
  await page.getByRole('button',{name:'Gradient',exact:true}).click();
  await page.getByRole('slider',{name:'Background brightness',exact:true}).focus();
  await page.keyboard.press('ArrowLeft');await page.keyboard.press('ArrowLeft');await page.keyboard.press('ArrowLeft');
- assert.equal(await page.locator('#brightness-value').textContent(),'85%');
+ assert.equal(await page.locator('#brightness-value').textContent(),'55%');
  await page.screenshot({path:'work/quiet-home-v3-settings.png'});
  await page.reload();
- assert.deepEqual(await page.evaluate(()=>QuietHomeAppearance.getState()),{preset:'ocean',hue:185,mode:'gradient',brightness:85});
+ assert.deepEqual(await page.evaluate(()=>QuietHomeAppearance.getState()),{preset:'ocean',hue:185,mode:'gradient',brightness:55});
  await page.getByRole('button',{name:'Quiet Home settings',exact:true}).click();
  await page.getByRole('button',{name:'Reset appearance',exact:true}).click();
  await page.getByRole('button',{name:'Home',exact:true}).click();

@@ -1,0 +1,11 @@
+# Home grid and motion — version 0.5
+
+Home is a single two-row grid of six wide app tiles. It has a personalized greeting and clock, without the selected-app hero, navigation capsule, favorites shelf or input dashboard. The first row contains the five streaming favorites and Samsung Apps. The second row contains All Apps, Search, Inputs, Appearance, TV Settings and Samsung Home. Secondary screens retain navigation.
+
+Directional movement keeps left/right within a row, moves vertically between rows and restores focus when returning Home. Inputs retains all reported HDMI ports and Live TV. Appearance retains the existing local-storage key and values; the TV's saved Slate/Gradient background survived the update. App ID and signing identity remain unchanged.
+
+Focused tiles lift and grow over 280 ms with a restrained spring-like easing; the foreground artwork moves independently to provide depth. A static highlight and shadow indicate focus. OK compresses the tile briefly, then releases it. Secondary views use a 240 ms fade and small spatial transition. Reduced-motion mode removes animated scale and movement. This adapts Apple TV's focus principles to Samsung's directional remote; it does not simulate touch-driven continuous parallax or replace native transitions inside other apps.
+
+Live TV inspection confirmed 12 Home tiles, the greeting, hidden Home navigation, loaded Inter, 24.96px app labels, and a full Home layout fitting at 1920×1080. A 420 ms requestAnimationFrame sample recorded 26 callbacks with no sampled interval above 50 ms; this checks basic responsiveness and does not measure every rendering frame. Focus reached its expected scale, and OK press/release classes both worked. The running TV screenshot was inspected. Browser tests cover grid navigation, system controls, search, focus restoration, press response, reduced motion, and layout.
+
+Apple references: [focus and selection](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection/), [app icon depth](https://developer.apple.com/design/human-interface-guidelines/app-icons), and [Apple TV navigation](https://support.apple.com/en-euro/guide/tv/atvbe55a4b4e/tvos). Video playback remained blocked by the browser's effective site permission after a retry; official transcripts and screen examples informed this work.

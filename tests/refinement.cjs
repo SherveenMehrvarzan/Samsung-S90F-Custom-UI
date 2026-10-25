@@ -1,12 +1,12 @@
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict'),path=require('node:path');
-(async()=>{const browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});const page=await browser.newPage({viewport:{width:1920,height:1080}});await page.goto('file:///'+path.resolve('app/index.html').replaceAll('\\','/'));
+(async()=>{const browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});const page=await browser.newPage({viewport:{width:1920,height:1080}});await page.route('https://api.open-meteo.com/**',r=>r.fulfill({json:{current:{temperature_2m:18,weather_code:0,is_day:0}}}));await page.goto('file:///'+path.resolve('app/index.html').replaceAll('\\','/'));
  await page.evaluate(()=>document.fonts.ready);assert.equal(await page.evaluate(()=>document.fonts.check('500 29px Inter')),true);
- await page.locator('#favorites button').last().focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'com.samsung.tv.store');
- await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('#spotlight-title').textContent(),'Twitch');
- await page.getByRole('button',{name:'Inputs',exact:true}).click();await page.keyboard.press('Escape');assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'Jz7aUrV2Q4.Twitch');
+ await page.locator('#favorites [data-app-id="com.samsung.tv.store"]').focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'com.samsung.tv.store');
+ await page.keyboard.press('ArrowLeft');assert.equal(await page.locator(':focus').getAttribute('data-app-id'),'Jz7aUrV2Q4.Twitch');
+ await page.getByRole('button',{name:'Inputs',exact:true}).click();await page.keyboard.press('Escape');assert.equal(await page.locator(':focus').getAttribute('data-control'),'inputs');
  const sizes=await page.evaluate(()=>({label:parseFloat(getComputedStyle(document.querySelector('.app-label')).fontSize),body:parseFloat(getComputedStyle(document.querySelector('.input-status')).fontSize),font:getComputedStyle(document.body).fontFamily,overflow:document.querySelector('#view-home').scrollHeight>document.querySelector('#view-home').clientHeight}));assert.ok(sizes.label>=23);assert.ok(sizes.body>=23);assert.equal(sizes.overflow,false);
  await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator(':focus .tile').evaluate(el=>getComputedStyle(el).transform),'none');
- await page.emulateMedia({reducedMotion:'no-preference'});await page.locator('#favorites button').first().focus();await page.screenshot({path:'work/quiet-home-v4-preview.png'});
+ await page.emulateMedia({reducedMotion:'no-preference'});await page.locator('#favorites button').first().focus();await page.screenshot({path:'work/quiet-home-v5-preview.png'});
  await page.setViewportSize({width:1280,height:720});assert.equal(await page.evaluate(()=>document.querySelector('#view-home').scrollHeight>document.querySelector('#view-home').clientHeight),false);
- await browser.close();console.log('PASS: bundled font, 23px labels at 1080p, grid edge behavior, focus heading/memory, reduced motion, and home layout at 1080p/720p.');})().catch(e=>{console.error(e);process.exit(1)});
+ await browser.close();console.log('PASS: bundled font, 23px labels at 1080p, grid edge behavior, focus memory, reduced motion, and home layout at 1080p/720p.');})().catch(e=>{console.error(e);process.exit(1)});

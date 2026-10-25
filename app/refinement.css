@@ -42,3 +42,76 @@ nav button:focus,.round:focus{background:linear-gradient(160deg,#fff,#d8deed);co
 footer{font-size:1.2vw;color:#a8adbf;padding-bottom:3vh}.footer-button{font-size:1.2vw;color:#c4c8d7;border-radius:2vw}#preview-badge{font-size:.85vw}#toast{font-size:1.35vw;border-radius:1.2vw}
 .appearance-panel,.tv-settings-card{border-radius:1.5vw;background:linear-gradient(135deg,#ffffff10,#ffffff07)}.appearance-heading h2,.tv-settings-card h2{font-size:1.7vw}.mode-switch button{font-size:1.2vw}.theme-swatch{font-size:1.2vw}.range-row>span{font-size:1.25vw}.range-row output{font-size:1.2vw}.appearance-bottom p,.appearance-bottom .text-button{font-size:1.2vw}.tv-settings-card>p{font-size:1.3vw}.tv-settings-card .settings-help{font-size:1.2vw}.appearance-bottom{gap:1vw}.appearance-bottom p{max-width:58%}.settings-grid{grid-template-columns:1.65fr 1fr}.settings-grid .text-button{white-space:nowrap}.theme-palette{gap:.8vw}.swatch-sample{height:6.7vh;border-radius:.8vw}.mode-switch{border-radius:2vw}.mode-switch button{border-radius:2vw}.appearance-panel{padding:1.7vw}.range-row{margin-top:2.4vh}
 @media(prefers-reduced-motion:reduce){.app:focus .tile,.input-card:focus{transform:none}.view-enter{animation:none}}
+/* Home is one app grid, with secondary pages retaining their navigation. */
+.greeting{display:none}
+body[data-view=home] header{height:27vh;align-items:center}
+body[data-view=home] .greeting{display:block;font-size:2.8vw;font-weight:550;letter-spacing:-.045em;line-height:1.1}
+body[data-view=home] .identity,body[data-view=home] nav,body[data-view=home] .status .round,body[data-view=home] footer{display:none}
+body[data-view=home] .status{position:absolute;right:5.3vw;top:6.4vh;color:#d5d6df}
+body[data-view=home] time{font-size:1.35vw;font-weight:500}
+body[data-view=home] .view{height:68vh;padding-top:2vh;padding-bottom:5vh}
+body[data-view=home] .shade{background:linear-gradient(180deg,#0b0d1a35,#10132142 45%,#080a16a8)}
+#favorites{padding:.8vw .05vw 2vh;margin:0;border:0;background:none;border-radius:0;box-shadow:none;row-gap:5.6vh;column-gap:2.25vw}
+#favorites .tile{aspect-ratio:1.667;border-radius:1.35vw}
+#favorites .app-label{margin-top:2.2vh;color:#ced0dc;font-size:1.3vw;font-weight:450}
+#favorites .app:focus .app-label{color:white;font-weight:550}
+.tile{position:relative;transform:translate3d(0,0,0);transition:transform 280ms cubic-bezier(.18,.85,.25,1.12),box-shadow 280ms ease,filter 240ms ease}
+.tile-art{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translate3d(0,0,0);transition:transform 280ms cubic-bezier(.18,.85,.25,1.12)}
+.app:focus .tile{transform:translate3d(0,-.45vh,0) scale(1.10);box-shadow:0 1.5vw 2vw #0008,0 .35vw .65vw #0004,0 0 0 .085vw #ffffff70;filter:brightness(1.1)}
+.app:focus .tile-art{transform:translate3d(0,-.15vh,0) scale(1.035)}
+.tile:after{transition:opacity 240ms,background 240ms;box-shadow:inset 0 1px 0 #ffffff20}
+.app:focus .tile:after{background:linear-gradient(125deg,#ffffff2e,transparent 55%);border-color:#ffffff65}
+.app.pressing .tile,.app:active .tile{transform:translate3d(0,0,0) scale(1.035);filter:brightness(.95);transition:transform 90ms ease-out,filter 90ms ease-out}
+.app.pressing .tile-art,.app:active .tile-art{transform:scale(1);transition-duration:90ms}
+.utility .tile{background:linear-gradient(145deg,#5e6c8c,#2b3450);box-shadow:0 .5vw .9vw #0004,inset 0 1px 0 #ffffff20}
+.utility-search .tile{background:linear-gradient(145deg,#778198,#3b4358)}
+.utility-inputs .tile{background:linear-gradient(145deg,#5f8391,#2c4e5f)}
+.utility-settings .tile{background:linear-gradient(145deg,#69748b,#343c51)}
+.utility-tv .tile{background:linear-gradient(145deg,#627998,#30445e)}
+.utility-home .tile{background:linear-gradient(145deg,#687387,#343b4b)}
+.utility svg{width:4.1vw;height:4.1vw;stroke:#f5f6fa;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.utility-apps svg{width:3.8vw;height:3.8vw;fill:#f5f6fa;stroke:none}
+.view-enter{animation:screen-arrive 240ms cubic-bezier(.2,.7,.2,1) both;transform-origin:50% 35%}
+@keyframes screen-arrive{from{opacity:0;transform:translate3d(0,.65vh,0) scale(.987)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.app:focus .tile,.app:focus .tile-art,.app.pressing .tile,.app.pressing .tile-art{transform:none}.view-enter{animation:none}}
+
+/* Connection shortcuts sit directly below the Inputs area. */
+.connection-shortcuts{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));column-gap:2.25vw;margin-top:1.2vh}
+.connection-button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5vh;min-height:8.7vh;padding:.5vw;background:linear-gradient(140deg,#ffffff16,#ffffff08);border:1px solid #ffffff25;border-radius:1.1vw;font-size:1.2vw;font-weight:500;transition:transform .22s cubic-bezier(.2,.8,.25,1.1),background .2s,box-shadow .2s}
+.connection-button:first-child{grid-column:3}.connection-button:last-child{grid-column:4}.connection-button svg{width:2vw;height:2vw;stroke-width:2;fill:none}
+.connection-button:focus{background:linear-gradient(150deg,#fff,#d9dfed);color:#202330;transform:translateY(-2px) scale(1.04);box-shadow:0 .6vw 1.2vw #0005}
+.connection-button:active{transform:scale(.98)}
+.cast-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:4vw}.cast-steps ol{list-style:none;counter-reset:steps;margin:0;padding:0}.cast-steps li{counter-increment:steps;position:relative;padding:1.8vh 0 2.8vh 4.2vw}.cast-steps li:before{content:counter(steps);position:absolute;left:0;top:1.5vh;display:flex;align-items:center;justify-content:center;width:2.7vw;height:2.7vw;border-radius:50%;background:#ffffff16;font-size:1.35vw;font-weight:600}.cast-steps strong{display:block;font-size:1.7vw;font-weight:600;letter-spacing:-.025em}.cast-steps li span{display:block;margin-top:1.2vh;color:#c5c9d7;font-size:1.35vw;line-height:1.6;max-width:95%}.cast-panel{padding:2vw;background:#ffffff0e;border:1px solid #ffffff20;border-radius:1.5vw;display:flex;flex-direction:column;align-items:flex-start}.cast-symbol svg{width:4.5vw;height:4.5vw;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.cast-panel h2{font-size:1.9vw;font-weight:600;letter-spacing:-.025em;margin:2vh 0 0}.cast-panel>p{font-size:1.3vw;line-height:1.6;color:#c5c9d7;margin:1.6vh 0 3vh}.cast-panel .cast-note{font-size:1.2vw;margin-top:auto;padding-top:3vh;margin-bottom:0;color:#b6bdcf}.cast-panel .text-button{margin-top:2vh}
+/* Avoid an extra foreground enlargement and fractional vertical translation. */
+.app:focus .tile{transform:translate3d(0,-4px,0) scale(1.10)}.app:focus .tile-art{transform:translate3d(0,-1px,0)}
+.app.pressing .tile,.app:active .tile{transform:translate3d(0,0,0) scale(1.035)}
+@media(prefers-reduced-motion:reduce){.app:focus .tile,.app:focus .tile-art,.connection-button:focus,.connection-button:active{transform:none}}
+
+/* Published app artwork, without font approximations of service logos. */
+.tile img.brand-logo{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;background:transparent;border-radius:0;padding:0}
+.netflix,.hbo,.hulu{background:#000}.prime{background:#032e56}.twitch{background:#9146ff}
+body[data-background=aurora] .wallpaper{background:radial-gradient(ellipse at 80% 10%,var(--color-top),transparent 68%),radial-gradient(ellipse at 10% 90%,var(--color-bottom),transparent 65%),#020308;filter:brightness(var(--background-brightness,1))}
+body[data-background=solid] .wallpaper{background:var(--color-top);filter:brightness(var(--background-brightness,1))}
+.theme-palette{row-gap:1.6vh;margin-top:2.1vh;margin-bottom:2vh}.swatch-sample{height:4.1vh;margin-bottom:.65vh}.theme-swatch{font-size:1.1vw}
+.sound-panel{width:100%;margin-top:2.5vh;padding-top:2vh;border-top:1px solid #ffffff20}.sound-heading{display:flex;align-items:center;justify-content:space-between}.sound-heading h3{margin:0;font-size:1.35vw;font-weight:600}.sound-panel .range-row{margin-top:1.3vh}.sound-panel .text-button{font-size:1.15vw;padding-left:0;margin-top:1vh}.tv-settings-card .settings-help{padding-top:2vh;font-size:1.1vw}
+
+.prime{background:#0678ff}.twitch{background:#9146ff}.hbo,.hulu,.netflix{background:#050506}.netflix .tile-art>.brand-logo{height:72%;top:14%}.hulu .tile-art>.brand-logo{width:70%;height:70%;left:15%;top:15%}.twitch .tile-art>.brand-logo{width:65%;height:65%;left:17.5%;top:17.5%}.hbo .tile-art>.brand-logo{width:88%;left:6%}
+.sound-panel .range-row{margin-top:1vh}.sound-panel .text-button{margin-top:.4vh}.tv-settings-card .settings-help{display:none}.tv-settings-card>.settings-symbol{font-size:2vw;margin-bottom:1vh}.tv-settings-card>p{margin-bottom:2vh}.appearance-panel,.tv-settings-card{padding-bottom:1.5vw}
+
+/* Keep artwork at its native raster scale; only the tile backing expands. */
+.tile,.app:focus .tile,.app.pressing .tile,.app:active .tile{transform:none!important;filter:none!important;background:transparent!important;box-shadow:none!important;overflow:visible}
+.tile:before{content:'';position:absolute;inset:0;z-index:0;border-radius:inherit;background:var(--tile-background,linear-gradient(145deg,#41516e,#253047));box-shadow:0 .45vw .8vw #0005,inset 0 1px 0 #ffffff1c;transition:transform 260ms cubic-bezier(.18,.85,.25,1.1),box-shadow 260ms ease}
+.tile:after{z-index:2;transform:none;background:transparent!important;transition:transform 260ms cubic-bezier(.18,.85,.25,1.1),border-color .2s;pointer-events:none}
+.tile-art{z-index:1;overflow:hidden;border-radius:inherit;filter:none;transition:transform 260ms cubic-bezier(.18,.85,.25,1.1)}
+.app:focus .tile:before,.app:focus .tile:after{transform:translateY(-4px) scale(1.10)}.app:focus .tile:before{box-shadow:0 1.5vw 2vw #0008,inset 0 1px 0 #ffffff35}.app:focus .tile-art{transform:translateY(-4px)!important}
+.app.pressing .tile:before,.app.pressing .tile:after,.app:active .tile:before,.app:active .tile:after{transform:scale(1.035);transition-duration:90ms}.app.pressing .tile-art,.app:active .tile-art{transform:none!important;transition-duration:90ms}
+.netflix,.hbo,.hulu,.art-appletv,.art-spotify,.art-tubi,.art-perplexity{--tile-background:#050506}.prime{--tile-background:#0678ff}.twitch{--tile-background:#9146ff}.store{--tile-background:linear-gradient(145deg,#61bcff,#1169de)}
+.utility .tile{--tile-background:linear-gradient(145deg,#5e6c8c,#2b3450)}.utility-inputs .tile{--tile-background:linear-gradient(145deg,#5f8391,#2c4e5f)}.utility-search .tile{--tile-background:linear-gradient(145deg,#778198,#3b4358)}
+.art-youtube,.art-youtubetv,.art-youtubekids,.art-smartthings{--tile-background:#fff}.art-perplexity{--tile-background:#143c3c}.art-tubi{--tile-background:#321151}
+.art-appletv .brand-logo,.art-youtube .brand-logo,.art-youtubetv .brand-logo,.art-youtubekids .brand-logo,.art-spotify .brand-logo,.art-smartthings .brand-logo,.art-tubi .brand-logo,.art-perplexity .brand-logo{width:76%;height:76%;left:12%;top:12%}
+.tile img:not(.brand-logo){background:transparent;object-fit:contain}.app-label{font-weight:500}body{font-synthesis:none}
+.clock-stack{display:flex;flex-direction:column;align-items:flex-end;gap:.55vh;text-align:right}.header-date{font-size:1.2vw;font-weight:450;color:#c4c8d4;line-height:1.2}.header-weather{display:flex;align-items:center;justify-content:flex-end;gap:.45vw;max-width:23vw;font-size:1.15vw;color:#bbc3d3;line-height:1.35;white-space:nowrap}.header-weather svg{width:1.2vw;height:1.2vw;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.header-weather span{overflow:hidden;text-overflow:ellipsis}.status{align-items:flex-start}.status .round{align-self:center}
+.weather-settings-link{margin-top:1.2vh;padding-left:0;font-size:1.15vw}.weather-preferences{width:60vw;padding:2vw;border-radius:1.5vw;border:1px solid #ffffff20;background:#ffffff0c}.weather-preferences h2{font-size:2vw;margin:0}.weather-preference-row{display:flex;align-items:center;justify-content:space-between;margin:3vh 0;font-size:1.4vw}.weather-credit{font-size:1.15vw;color:#b4bed0;margin:2vh 0 0}.weather-preferences #weather-status{font-size:1.2vw}
+@media(prefers-reduced-motion:reduce){.app:focus .tile:before,.app:focus .tile:after,.app:focus .tile-art{transform:none!important}.tile:before,.tile:after{transition:none}}
+.tile-art{transform:none}
+.tile.art-appletv .tile-art>.brand-logo,.tile.art-youtube .tile-art>.brand-logo,.tile.art-youtubetv .tile-art>.brand-logo,.tile.art-youtubekids .tile-art>.brand-logo,.tile.art-spotify .tile-art>.brand-logo,.tile.art-smartthings .tile-art>.brand-logo,.tile.art-tubi .tile-art>.brand-logo,.tile.art-perplexity .tile-art>.brand-logo{width:76%;height:76%;left:12%;top:12%}

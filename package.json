@@ -1,9 +1,9 @@
 {
   "name": "samsung-s90f-quiet-home",
-  "version": "0.4.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
-    "test": "node tests/browser.cjs && node tests/refinement.cjs"
+    "test": "node tests/browser.cjs && node tests/refinement.cjs && node tests/home-grid.cjs && node tests/appearance-sound.cjs && node tests/clarity-weather.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"
