@@ -1,5 +1,9 @@
 # Samsung S90F Custom UI — Quiet Home
 
+> **Home/startup integration suspended — 24 October 2026.** Repeated relay clicks and changed standby behavior were reported after customization. The cause is unconfirmed. All captured original Home/startup preferences were restored and independently verified, and the owner confirmed Samsung Home returns. Quiet Home was stopped and the SDK/debug connection closed. Standby observation is pending. Do not reapply native Home/startup assignments while investigating this report.
+
+The remaining notes record earlier development milestones and do not establish standby stability.
+
 A clean Apple TV-inspired launcher for Samsung's Tizen TV platform. Version 0.4 includes a six-column app grid, translucent navigation, installed-app search, Samsung Apps download access, TV input cards, a custom house icon and persistent background customization. Version 0.4 bundles Inter for consistent TV typography, increases label sizes, adds a translucent favorites shelf, deeper focus lighting, a selected-app heading and remembered app focus.
 
 ## Current result

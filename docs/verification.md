@@ -1,5 +1,9 @@
 # Verification status
 
+> **Home/startup integration suspended — 24 October 2026.** Repeated relay clicks and changed standby behavior were reported after customization. The cause is unconfirmed. All captured original Home/startup preferences were restored and independently verified, and the owner confirmed Samsung Home returns. Quiet Home was stopped and the SDK/debug connection closed. Standby observation is pending. Do not reapply native Home/startup assignments while investigating this report.
+
+The remaining notes record earlier development milestones and do not establish standby stability.
+
 ## Confirmed
 
 - Tizen 9.0, 32-bit ARM reported through official SDB capability output.
